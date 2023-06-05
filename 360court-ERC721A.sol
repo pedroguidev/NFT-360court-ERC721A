@@ -575,7 +575,7 @@ contract ERC721A is
     uint128 numberMinted;
   }
 
-  uint256 private currentIndex = 8740000;
+  uint256 private currentIndex = 8741000;
 
   uint256 internal immutable collectionSize;
   uint256 internal immutable maxBatchSize;
@@ -745,7 +745,7 @@ contract ERC721A is
   /**
    * @dev See {IERC721Metadata-tokenURI}.
    */
-  function tokenURI(uint256 tokenId)
+    function tokenURI(uint256 tokenId)
     public
     view
     virtual
@@ -756,14 +756,32 @@ contract ERC721A is
       _exists(tokenId),
       "ERC721Metadata: URI query for nonexistent token"
     );
+    string memory fullURI;
+    if (tokenId >= 8741000 && tokenId < 8741053){
+        fullURI = "https://gateway.pinata.cloud/ipfs/QmR1bnhkBVrXUHaQ7Ceh8u3MHnS8DvpNVxpj8VXQk9T1pg/02.json";
+    }
+    
+    if (tokenId >= 8741053 && tokenId < 8741103){
+        fullURI = "https://gateway.pinata.cloud/ipfs/QmR1bnhkBVrXUHaQ7Ceh8u3MHnS8DvpNVxpj8VXQk9T1pg/03.json";
+    }
 
-    string memory baseURI = _baseURI();
+    if (tokenId >= 8741103 && tokenId < 8741113){
+      fullURI = "https://gateway.pinata.cloud/ipfs/QmR1bnhkBVrXUHaQ7Ceh8u3MHnS8DvpNVxpj8VXQk9T1pg/05.json";
+    }
+   
+   
+    if (tokenId >= 8741113 && tokenId < 8741123){
+      fullURI = "https://gateway.pinata.cloud/ipfs/QmR1bnhkBVrXUHaQ7Ceh8u3MHnS8DvpNVxpj8VXQk9T1pg/10.json";
+    }
 
-
-    return
-      bytes(baseURI).length > 0
-        ? string(abi.encodePacked(baseURI, tokenId.toString()))
-        : "";
+    if (tokenId >= 8741123 && tokenId < 8741133){
+       fullURI = "https://gateway.pinata.cloud/ipfs/QmR1bnhkBVrXUHaQ7Ceh8u3MHnS8DvpNVxpj8VXQk9T1pg/15.json";
+    }
+    
+    if (tokenId >= 8741133 && tokenId < 8741143){
+      fullURI = "https://gateway.pinata.cloud/ipfs/QmR1bnhkBVrXUHaQ7Ceh8u3MHnS8DvpNVxpj8VXQk9T1pg/20.json";
+    }
+    return fullURI;
   }
 
   /**
@@ -1220,7 +1238,7 @@ abstract contract Ownable is Context {
 }
 
 
-contract Azuki is Ownable, ERC721A, ReentrancyGuard {
+contract court360  is Ownable, ERC721A, ReentrancyGuard {
   uint256 public immutable maxPerAddressDuringMint;
 
   struct SaleConfig {
@@ -1234,38 +1252,10 @@ contract Azuki is Ownable, ERC721A, ReentrancyGuard {
   SaleConfig public saleConfig;
 
   constructor(
-    uint256 maxBatchSize_,
-    uint256 collectionSize_
-  ) ERC721A("Court 360", "C360", maxBatchSize_, collectionSize_) {
-    maxPerAddressDuringMint = maxBatchSize_;
+  ) ERC721A("Court 360", "C360", 143, 143) {
+    maxPerAddressDuringMint = 143;
   }
 
-    function tokenURI(uint256 tokenId)
-    public
-    view
-    virtual
-    override
-    returns (string memory)
-  {
-    require(
-      _exists(tokenId),
-      "ERC721Metadata: URI query for nonexistent token"
-    );
-    string memory fullURI;
-    if (tokenId >= 8741000 && tokenId < 8741053)
-    fullURI = "https://lavender-grim-deer-416.mypinata.cloud/ipfs/QmRN511Rb2CSgJ1QPpJuqe7yPUpHa8y6nniWTSnASaVfBT/02pt.mp4";
-    if (tokenId >= 8741053 && tokenId < 8741103)
-    fullURI = "https://lavender-grim-deer-416.mypinata.cloud/ipfs/QmRN511Rb2CSgJ1QPpJuqe7yPUpHa8y6nniWTSnASaVfBT/03pt.mp4";
-    if (tokenId >= 8741103 && tokenId < 8741113)
-    fullURI = "https://lavender-grim-deer-416.mypinata.cloud/ipfs/QmRN511Rb2CSgJ1QPpJuqe7yPUpHa8y6nniWTSnASaVfBT/05pt.mp4";
-    if (tokenId >= 8741113 && tokenId < 8741123)
-    fullURI = "https://lavender-grim-deer-416.mypinata.cloud/ipfs/QmRN511Rb2CSgJ1QPpJuqe7yPUpHa8y6nniWTSnASaVfBT/10pt.mp4";
-    if (tokenId >= 8741123 && tokenId < 8741133)
-    fullURI = "https://lavender-grim-deer-416.mypinata.cloud/ipfs/QmRN511Rb2CSgJ1QPpJuqe7yPUpHa8y6nniWTSnASaVfBT/15pt.mp4";
-    if (tokenId >= 8741133 && tokenId < 8741143)
-    fullURI = "https://lavender-grim-deer-416.mypinata.cloud/ipfs/QmRN511Rb2CSgJ1QPpJuqe7yPUpHa8y6nniWTSnASaVfBT/20pt.mp4";
-    return    fullURI;
-  }
 
   function devMint(uint256 quantity) external onlyOwner {
     require(
